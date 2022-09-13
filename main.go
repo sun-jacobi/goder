@@ -3,5 +3,5 @@ package main
 func main() {
 	SetUpDB()
 	SetUpRouter()
-	router.Run(":3000")
+	Router.Run(":3000")
 }

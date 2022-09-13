@@ -5,30 +5,25 @@ import "github.com/gin-gonic/gin"
 var Router *gin.Engine
 
 func getProbEndPoint(c *gin.Context) {
-	id := c.Param("id")
-	prob, err := DB.GetProblem(1)
-	c.JSON()
+	//TODO
 }
 
 func judgeEndPoint(c *gin.Context) {
-	id := c.Query("id")
-	src, err := c.FormFile("src")
-
+	// TODO
 }
 
 func uploadEndPoint(c *gin.Context) {
-	form, _ := c.MultipartForm()
-	inputs := form.File["input"]
-	outputs := form.File["output"]
+	//TODO
 }
 
 // Set up the router
 func SetUpRouter() {
-	router := gin.Default()
-	api := router.Group("/api")
+	Router = gin.Default()
+	api := Router.Group("/api")
 	{
 		api.POST("/judge", judgeEndPoint)
 		api.POST("/upload", uploadEndPoint)
 		api.GET("/prob/:id", getProbEndPoint)
 	}
+
 }

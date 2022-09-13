@@ -1,4 +1,4 @@
-module goj
+module goder
 
 go 1.18
 
