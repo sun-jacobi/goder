@@ -25,9 +25,8 @@ type Problem struct {
 	name      string
 	id        int
 }
-type Result struct {
-	author string
-	id     int
+
+type Student struct {
 }
 
 //----------------------------------------------
@@ -38,9 +37,9 @@ func UploadProblem(context *multipart.FileHeader, tests *[]multipart.FileHeader)
 }
 
 // Get a problem
-func (database *database) GetProblem(probID int) (*Problem, error) {
+func (database *database) GetProblem(pid string) (*Problem, error) {
 	db := database.inernal
-	row, err := db.Query("SELECT * FROM PROBLEM WHERE PROBID = $1", probID)
+	row, err := db.Query("SELECT * FROM PROBLEM WHERE PROBID = $1", pid)
 	defer row.Close()
 	if err != nil {
 		return nil, errors.New("Error Failed to get the problem")
@@ -54,6 +53,19 @@ func (database *database) GetProblem(probID int) (*Problem, error) {
 	return &problem, nil
 }
 
+// Get paths for tests by problem id
+func (database *database) GetTest(pid string) ([]string, error) {
+	prob, err := DB.GetProblem(pid)
+	return prob.testcases, err
+}
+
+// Get Student
+func (database *database) GetStudent(uid string) (*Student, error) {
+	//db := database.inernal
+	//row, err := db.Query("SELECT * FROM STUDENT WHERE UID = $1", uid)
+	return nil, nil
+}
+
 //----------------------------------------------
 func SetUpDB() {
 	conn := getConnStr()
@@ -61,7 +73,6 @@ func SetUpDB() {
 	if err != nil {
 		log.Fatal("Error opening database")
 	}
-
 	DB = &database{db}
 }
 
